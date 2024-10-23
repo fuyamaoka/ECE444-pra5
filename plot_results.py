@@ -5,7 +5,7 @@ import seaborn as sns
 # Load the CSV data into a DataFrame
 data = pd.read_csv('api_performance.csv')
 
-# Create a boxplot to visualize the response times
+# Create a boxplot to visualize response times
 plt.figure(figsize=(10, 6))
 sns.boxplot(x='Test Case', y='Response Time (ms)', data=data)
 
@@ -17,9 +17,10 @@ plt.ylabel('Response Time (ms)')
 # Save the plot as a PNG image
 plt.savefig('performance_boxplot.png')
 
-# Display the plot
-plt.show()
-
-# Calculate and print the average latency for each test case
+# Calculate the average (mean) latency for each test case
 average_latency = data.groupby('Test Case')['Response Time (ms)'].mean()
-print("Average Latency (ms):\n", average_latency)
+
+# Save the average latencies to a new CSV file
+average_latency.to_csv('average_latency.csv', sep=' ',  header=['Average Latency (ms)'])
+
+print("Average latencies saved to 'average_latency.csv'.")
